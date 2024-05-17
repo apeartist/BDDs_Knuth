@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/Zc:nrvo- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,12 +129,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BDD.cpp" />
+    <ClCompile Include="BDDBase.cpp" />
     <ClCompile Include="BDDs_Knuth.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="PNode.cpp" />
+    <ClCompile Include="PointerBDD.cpp" />
     <ClCompile Include="ZDD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BDD.h" />
+    <ClInclude Include="BDDBase.h" />
+    <ClInclude Include="PNode.h" />
+    <ClInclude Include="PointerBDD.h" />
     <ClInclude Include="ZDD.h" />
     <ClInclude Include="Node.h" />
   </ItemGroup>

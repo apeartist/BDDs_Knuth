@@ -13,7 +13,8 @@ public:
 
 	//vector<int> solutions();
 	void reduce();
-	BDD synthesis(uint8_t op);
+	//BDD synthesis(uint8_t op);
+	
 
 	string toString();
 };

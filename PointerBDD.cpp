@@ -1,46 +1,49 @@
-#include "BDD.h"
+#include "PointerBDD.h"
 #include <cmath>
 
 using namespace std;
 
-BDD::BDD(vector<vector<int>> arr) {
+PointerBDD::PointerBDD(vector<vector<int>> arr) {
 	// val, lo_index, hi_index
+	rootIndex = -1;
+	vmax = 0;
 	for (int i = 0; i < arr.size(); i++) {
-		nodes.push_back(Node(arr[i]));
+		nodes.push_back(PNode(arr[i], i));
 		vmax = max(vmax, arr[i][0]);
 		if (arr[i][0] == 1) {
 			rootIndex = i;
 		}
 	}
 	for (int i = 0; i < arr.size(); i++) {
-		nodes[i].lo = arr[i][1];
-		nodes[i].hi = arr[i][2];
+		nodes[i].lo = &nodes[arr[i][1]];
+		nodes[i].hi = &nodes[arr[i][2]];
+
 	}
 }
 
-/*
-vector<int> BDD::solutions() {
+
+vector<int> PointerBDD::solutions() {
 	vector<int> out = vector<int>(nodes.size());
 	out[0] = 0;
 	out[1] = 1;
 	for (int i = 2; i < nodes.size(); i++) {
-		Node lo = *nodes[i].lo; // asterisk before points to the value the pointer points to
-		Node hi = *nodes[i].hi;
+		PNode lo = *nodes[i].lo; // asterisk before points to the value the pointer points to
+		PNode hi = *nodes[i].hi;
 		int powlo = lo.val - nodes[i].val-1;
 		int powhi = hi.val - nodes[i].val-1;
 		int shiftlo = 1 << powlo;
 		int shifthi = 1 << powhi;
-		out[i] = (out[nodes[i].lo] * shiftlo) + (out[nodes[i].hi] * shifthi);
+		out[i] = (out[(*nodes[i].lo).index] * shiftlo) + (out[(*nodes[i].hi).index] * shifthi);
 	}
 	return out;
 }
-*/
 
-void BDD::reduce() {
+/*
+void PointerBDD::reduce() {
 	// returns avail, index of the start of linkedlist. connected through hi, deleted nodes.
 	vector<int> aux(nodes.size());
 	vector<int> head = vector<int>(); // indeces
-	head.resize(vmax+1);
+	head.resize(vmax + 1);
 	int avail = -1; // "null" pointer for linked list of nodes to delete
 
 	//R1
@@ -84,7 +87,7 @@ void BDD::reduce() {
 			if (nodes[q].lo < 0) {
 				nodes[p].hi = ~nodes[q].lo;
 			}
-			
+
 			q = nodes[p].lo;
 			if (nodes[q].lo < 0) {
 				nodes[p].lo = ~nodes[q].lo;
@@ -131,7 +134,7 @@ void BDD::reduce() {
 		}
 		else {
 			q = p;
-		}*/
+		}
 
 		while (p != 0) { // R9
 			//R6
@@ -179,7 +182,7 @@ void BDD::reduce() {
 			count++;
 		}
 	}
-	vector<Node> newNodes = vector<Node>();
+	vector<PNode> newNodes = vector<PNode>();
 	for (int i = 0; i < nodes.size(); i++) {
 		if (nodes[i].lo >= 0) {
 			nodes[i].lo = newIndex[nodes[i].lo];
@@ -191,6 +194,7 @@ void BDD::reduce() {
 
 	return;
 }
+*/
 
 /*
 BDD BDD::synthesis(uint8_t op) {
@@ -201,10 +205,10 @@ BDD BDD::synthesis(uint8_t op) {
 
 
 
-string BDD::toString() {
+string PointerBDD::toString() {
 	string out = "";
-	for (Node n : nodes) {
-		out += "{" + to_string(n.val) + "," + to_string(n.lo) + "," + to_string(n.hi) + "},";
+	for (const PNode n : nodes) {
+		out += "{" + to_string(n.val) + "," + to_string((*n.lo).index) + "," + to_string((*n.hi).index) + "},";
 	}
 	return out;
 }
