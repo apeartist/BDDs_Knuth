@@ -18,7 +18,7 @@ int BDDBase::meldAnd(int f, int g) {
 	if (f == 1) { return g; }
 	if (g == 1) { return f; }
 
-	int64 key = hash(f, g);
+	int64 key = hash(f, g, AND);
 	if (memo.find(key) != memo.end()) {
 		return memo[key];
 	}
@@ -32,7 +32,7 @@ int BDDBase::meldAnd(int f, int g) {
 	int rl = meldAnd(fl, gl);
 	int rh = meldAnd(fh, gh);
 
-	int r = unique(v, rl, rh);
+	int r = unique(v, rl, rh, AND);
 	memo[key] = r;
 	return r;
 }
@@ -41,7 +41,7 @@ int BDDBase::meldButNot(int f, int g) {
 	if (f == 0 || g == 1) { return 0; }
 	if (g == 0) { return f; }
 
-	int64 key = hash(f, g);
+	int64 key = hash(f, g,BUTNOT);
 	if (memo.find(key) != memo.end()) {
 		return memo[key];
 	}
@@ -55,7 +55,7 @@ int BDDBase::meldButNot(int f, int g) {
 	int rl = meldButNot(fl, gl);
 	int rh = meldButNot(fh, gh);
 
-	int r = unique(v, rl, rh);
+	int r = unique(v, rl, rh,BUTNOT);
 	memo[key] = r;
 	return r;
 }
@@ -65,7 +65,7 @@ int BDDBase::meldOr(int f, int g) {
 	if (f == 0) { return g; }
 	if (g == 0) { return f; }
 
-	int64 key = hash(f, g);
+	int64 key = hash(f, g,OR);
 	if (memo.find(key) != memo.end()) {
 		return memo[key];
 	}
@@ -79,7 +79,7 @@ int BDDBase::meldOr(int f, int g) {
 	int rl = meldOr(fl, gl);
 	int rh = meldOr(fh, gh);
 
-	int r = unique(v, rl, rh);
+	int r = unique(v, rl, rh,OR);
 	memo[key] = r;
 	return r;
 }
@@ -142,17 +142,19 @@ vector<int> BDDBase::findVisited(int f) {
 	return out;
 }
 
-inline int64 BDDBase::hash(int a, int b) {
-	return (((int64)b) << 32) | a;
+inline int64 BDDBase::hash(int a, int b, funcs function) {
+	//return (((int64)b) << 32) | a;
+	return (((int64)b) << 34) | ((int64)function<<30) | a;
 }
 
-inline int64 BDDBase::hash(const Node& n) {
-	return (((int64)n.hi) << 32) | n.lo;
+inline int64 BDDBase::hash(const Node& n, funcs function) {
+	//return (((int64)n.hi) << 32) | n.lo;
+	return (((int64)n.hi) << 34) | ((int64)function << 30) | n.lo;
 }
 
-int BDDBase::unique(int v, int l, int h) {
+int BDDBase::unique(int v, int l, int h, funcs function) {
 	if (l == h) { return l; }
-	int64 key = hash(l, h);
+	int64 key = hash(l, h, function);
 	if (uniqueTables[v].find(key) != uniqueTables[v].end()) {
 		return uniqueTables[v][key];
 	}

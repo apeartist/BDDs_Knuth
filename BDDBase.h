@@ -16,6 +16,10 @@ public:
 	vector<Node> nodes;
 	int maxval;
 
+	enum funcs {
+		AND = 1, BUTNOT = 2, OR = 7
+	};
+
 	vector<unordered_map<int64, int>> uniqueTables;
 	unordered_map<int64, int> memo; // automatic chaining
 
@@ -28,8 +32,8 @@ public:
 	int64 countSolutions(int f);
 	vector<int> findVisited(int f); // util function to get a vector of visited nodes from root
 
-	int64 hash(int a, int b);
-	int64 hash(const Node& n);
-	int unique(int v, int l, int h);
+	int64 hash(int a, int b, funcs function);
+	int64 hash(const Node& n, funcs function);
+	int unique(int v, int l, int h, funcs function);
 };
 

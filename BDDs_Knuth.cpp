@@ -119,7 +119,7 @@ int main()
     cout << base.countSolutions(root);
     */
 
-    int coverings = triominoes(2, 3,base);
+    int coverings = triominoes(2, 9,base);
     cout << base.countSolutions(coverings) << endl;
 
     
