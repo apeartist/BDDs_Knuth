@@ -36,6 +36,9 @@
     <ClCompile Include="BDDBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ZDDBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BDD.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BDDBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZDDBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

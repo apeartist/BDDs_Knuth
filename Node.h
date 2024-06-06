@@ -12,6 +12,8 @@ public:
 	int lo; // index of lo
 	int hi; // index of hi
 
+	int ref = 0;
+
 	/*int aux; // extra storage vvv
 	bool aux_bool;
 	bool lo_bool;*/

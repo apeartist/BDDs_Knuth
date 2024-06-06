@@ -14,3 +14,4 @@ Node::Node(vector<int> arr) {
 bool Node::operator<(const Node& o) const { 
 	return val < o.val;
 }
+

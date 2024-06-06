@@ -135,6 +135,7 @@
     <ClCompile Include="PNode.cpp" />
     <ClCompile Include="PointerBDD.cpp" />
     <ClCompile Include="ZDD.cpp" />
+    <ClCompile Include="ZDDBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BDD.h" />
@@ -143,6 +144,7 @@
     <ClInclude Include="PointerBDD.h" />
     <ClInclude Include="ZDD.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="ZDDBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

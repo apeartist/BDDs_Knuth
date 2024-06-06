@@ -95,7 +95,7 @@ int main()
 
     int root = base.meldButNot(base.basicFunction(1), base.basicFunction(2));
     root = base.meldButNot(root, base.basicFunction(3));
-    root = base.meldButNot(root, base.basicFunction(4)); // weird case, it dupes [1,0,1] 
+    root = base.meldButNot(root, base.basicFunction(4));
     cout << root << endl;
     base.cleanupNodes();
     cout << root << endl;
